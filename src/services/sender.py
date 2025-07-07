@@ -11,7 +11,9 @@ headers = {
 }
 
 API_KEY = os.getenv("SCRAPER_API_KEY")
-API_URL = os.getenv("API_URL", "http://localhost:3333/register-posts")
+API_URL = os.getenv(
+    "API_URL", "https://juscashcase-production.up.railway.app/register-posts"
+)
 
 
 def send_data_to_api(data):
