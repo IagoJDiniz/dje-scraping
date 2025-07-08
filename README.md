@@ -80,6 +80,7 @@ python src/main.py
 <br/>
 [Front-end](https://github.com/IagoJDiniz/juscash-front/)
 <br/>
+[Diagrama de fluxo do script](fluxo.pdf)
 
 
 ## 📈 Pontos de melhoria
