@@ -66,7 +66,7 @@ python src/main.py
 ```
 <strong>O comando "python" pode ser "python3" caso esteja em uma distribuição linux(Mas isso você já deve saber)</strong>
 <br/>
-  - A busca, extração e salvamento levam em torno de 4h e estão sendo executadas diariamente via githubActions nesse repositório
+  - A busca, extração e salvamento levam em torno de 4h(são mais de 1300 publicações) e estão sendo executadas diariamente via githubActions nesse repositório
   - Caso tenha interesse em ver o navegador rodando basta "comentar" a linha contendo "--headless" no src/scraper/browser.py
 <br/>  
 
