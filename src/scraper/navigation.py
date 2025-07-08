@@ -14,9 +14,11 @@ from scraper.utils import go_to_next_page, has_next_page
 
 def run_scraper(driver, data_inicio, data_fim):
     logging.info("Acessando página inicial...")
+    # Acessa o site do DJE e aguarda carregar
     driver.get("https://dje.tjsp.jus.br/cdje/index.do")
     time.sleep(2)
 
+    # Localizo os campos que devo alterar na página
     campo_data_inicio = driver.find_element(By.NAME, "dadosConsulta.dtInicio")
     campo_data_fim = driver.find_element(By.NAME, "dadosConsulta.dtFim")
     campo_palavras_chave = driver.find_element(By.NAME, "dadosConsulta.pesquisaLivre")
@@ -24,6 +26,7 @@ def run_scraper(driver, data_inicio, data_fim):
     campo_caderno = Select(driver.find_element(By.NAME, "dadosConsulta.cdCaderno"))
     campo_caderno.select_by_value("12")
 
+    # Altero os filtros
     driver.execute_script(
         "arguments[0].setAttribute('value', arguments[1])",
         campo_data_inicio,
@@ -34,6 +37,7 @@ def run_scraper(driver, data_inicio, data_fim):
     )
     campo_palavras_chave.send_keys('"RPV" E "pagamento pelo INSS"')
 
+    # Mando pesquisar e aguardo
     driver.find_element(
         By.XPATH, '//input[@type="submit" and @value="Pesquisar"]'
     ).click()
@@ -44,6 +48,7 @@ def run_scraper(driver, data_inicio, data_fim):
     all_structured_data = []
 
     def process_current_page():
+        # Aqui eu começo a pegar os dados de cada página
         links = driver.find_elements(
             By.XPATH, "//a[span[contains(text(), 'ocorrência')]]"
         )
@@ -80,9 +85,11 @@ def run_scraper(driver, data_inicio, data_fim):
 
     process_current_page()
 
+    # Enquanto eu tiver mais páginas eu continuo avançando e repetindo a extração
     while has_next_page(driver):
         go_to_next_page(driver)
         time.sleep(3)
         process_current_page()
 
+    # Por fim eu retorno os dados para envio
     return all_structured_data
